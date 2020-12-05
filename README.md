@@ -1,27 +1,60 @@
-# Justcontrol
+# Тестовое задание для фронтенд разработчика JustControl.it
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.0.
+## Задача
 
-## Development server
+Представьте ситуацию:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Вы и ваша команда планируете создать лучший в мире инструмент визуализации маркетинговых данных.
 
-## Code scaffolding
+Вы пока не знаете точно, как именно вы будете это делать.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Вы хотите получить очень гибкий и мощный инструмент и развивать его постепенно.
 
-## Build
+В команде вы отвечаете за гибкость и расширяемость. Бизнес полагается на вас, как человека, который лучше всех знает, как надо делать с технической точки зрения.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Вам предстоит положить начало этому проекту и начать с *минимально полезной версии*.
 
-## Running unit tests
+Для абсолютного минимума достаточно создать Angular SPA, которое отображает таблицу с данными из Data API.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Data API уже готов и опубликован, но пока известен лишь формат данных. Пример в файле [assets/data.json](assets/data.json). Объем данных может быть в сотни раз больше, чем в примере.
 
-## Running end-to-end tests
+Ваша задача предложить бизнесу свое решение проблемы.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+### FYI:
 
-## Further help
+Прочитайте внимательно еще раз раздел Задача и постарайтесь понять задачу правильно.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+- ТЗ не существует, есть только бизнес-задача и вы
+- У бизнеса будет много задач в будущем, от вас требуется минимальная версия продукта сейчас и понимание, как развивать продукт технически
+- будьте готовы защитить свое решение перед коллегами
+
+#### Описание формата данных
+```js
+//
+// Данные представлены в виде таблицы значений с описанием столбцов и строкой total для каждой метрики.
+//
+{
+  // Строки данных:
+  "data": [ ... ],
+
+  // Мета-информация:
+  "meta": {
+
+    // Описание колонок с полями:
+    //   - Тип:
+    //       "type": "metric" | "entity", - метрика или сущность
+    //   - Ключ столбца:
+    //       "key": string,
+    //   - Заголовок столбца:
+    //       "title": string,
+    //   - (для колонок "metric") Тип метрики (деньги, абсолютное значение или относительное):
+    //       "metricType"?: "money" | "absolute" | "relative",
+    //   - (для колонок "metric" с типом метрики "money') Валюта:
+    //       "currency"?: string
+    "columns": [ ... ],
+
+    // Суммы по столбцам
+    "total": { ... }
+  }
+}
+```

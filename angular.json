@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "justcontrol"
+    }
+  },
+  "defaultProject": "justcontrol",
+  "cli": {
+    "analytics": "2f3bbb56-6bde-4419-9ad1-ded54fe202a1"
+  }
 }

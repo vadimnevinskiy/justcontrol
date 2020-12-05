@@ -1,0 +1,50 @@
+<div *ngIf="data">
+  <div class="container">
+    <div class="buttons-filter">
+      Show cell:  <span class="button button-active" *ngFor="let columns of data['meta']['columns']">{{columns.title}}</span>
+    </div>
+
+    <div class="table-container">
+      <table class="table-metric">
+        <thead>
+          <tr class="metric-row__header">
+            <th class="metric-cell" *ngFor="let columns of data['meta']['columns']">{{columns.title}}</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr class="metric-row" *ngFor="let dataRow of data['data']">
+            <td class="metric-cell" *ngFor="let data of dataRow">{{data}}</td>
+          </tr>
+        </tbody>
+
+        <tfoot>
+          <tr class="metric-row__footer">
+            <td class="metric-cell">TOTAL:</td>
+            <td class="metric-cell" >{{data['meta']['total']['impressions']}}</td>
+            <td class="metric-cell">{{data['meta']['total']['clicks']}}</td>
+            <td class="metric-cell">{{data['meta']['total']['ctr']}}</td>
+            <td class="metric-cell">{{data['meta']['total']['installs']}}</td>
+            <td class="metric-cell">{{data['meta']['total']['cr0']}}</td>
+            <td class="metric-cell">{{data['meta']['total']['register']}}</td>
+            <td class="metric-cell">{{data['meta']['total']['register_unique']}}</td>
+            <td class="metric-cell">{{data['meta']['total']['cr1']}}</td>
+            <td class="metric-cell">{{data['meta']['total']['ftd']}}</td>
+            <td class="metric-cell">{{data['meta']['total']['ftd_unique']}}</td>
+            <td class="metric-cell">{{data['meta']['total']['cr2']}}</td>
+            <td class="metric-cell">{{data['meta']['total']['af_purchase']}}</td>
+            <td class="metric-cell">{{data['meta']['total']['spent']}}</td>
+            <td class="metric-cell">{{data['meta']['total']['revenue']}}</td>
+            <td class="metric-cell">{{data['meta']['total']['roas']}}</td>
+            <td class="metric-cell">{{data['meta']['total']['ecpi']}}</td>
+            <td class="metric-cell">{{data['meta']['total']['arpu']}}</td>
+            <td class="metric-cell">{{data['meta']['total']['cpt']}}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+
+  </div>
+</div>
+
