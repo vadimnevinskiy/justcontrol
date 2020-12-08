@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Data} from '../shared/interfaces';
+import {TableService} from '../shared/services/table.service';
 
 const API = 'assets/data2.json';
 
@@ -17,35 +18,31 @@ export class TableComponent implements OnInit {
   sortedData: any; // Copying data array an array for display at UI
   hideCell: number[] = [3, 5, 8, 11, 12, 13, 14, 15, 16, 17, 18]; // Default hidden columns
   hideCellCopy: number[] = []; // Copying 'hideCell' array
-  p = 1;
-  displayItems = '10';
-  allItems: number;
-  columnWidth = 'auto';
+  p = 1; // Current Page
+  displayItems = '10'; // Display page Items
+  allItems: number; // Calculating all items
+  columnWidth = 'auto'; // Calculating column width
 
 
-  sortedColumn: number;
-  orderBy: string;
-  search = '';
+  sortedColumn: number; // Get sortered column index
+  orderBy: string; // Get order column
+  search = ''; // Search text
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private tableService: TableService) {
   }
 
   ngOnInit() {
-    this.getData(API);
+    // Get response from Service
+    this.tableService.getDataFromApi(API).subscribe(response => {
+      this.data = response; // Main response
+      this.sortedData = response['data'].slice(); // Copying data array an array for display
+      this.allItems = response.data.length; // Calculate the length of the entire array
+      this.mathColumnWidth(this.hideCell.length);
+    });
   }
 
 
-  // Get responce from API
-  getData(api) {
-    this.http.get<Data>(api)
-      .subscribe(response => {
-        this.data = response; // Main response
-        this.sortedData = response['data'].slice(); // Copying data array an array for display
-        this.allItems = response.data.length; // Calculate the length of the entire array
-        this.mathColumnWidth(this.hideCell.length);
-      });
-  }
 
   // Switcher for hidden and display columns: "idx" - index of column
   switchDisplayColumn(idx: number): void {
@@ -78,13 +75,12 @@ export class TableComponent implements OnInit {
   // Sorting data in columns
   sortColumn(idx): void {
     const data = this.data['data'].slice();
-
-    if(this.sortedColumn === idx && this.orderBy === 'desc'){
+    if (this.sortedColumn === idx && this.orderBy === 'desc') {
       this.orderBy = 'asc';
       this.sortedData = data.sort((a, b) =>
         a[idx] > b[idx] ? -1 : 1
       );
-    }else{
+    } else {
       this.orderBy = 'desc';
       this.sortedData = data.sort((a, b) =>
         a[idx] > b[idx] ? 1 : -1

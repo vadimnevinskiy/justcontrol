@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
 import {MaterialModule} from './shared/material.module';
 
+
 @NgModule({
   declarations: [
     AppComponent,
