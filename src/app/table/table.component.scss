@@ -3,7 +3,7 @@
   border-collapse: collapse;
 }
 .table-container{
-  overflow-y: auto;
+  //overflow-y: auto;
 }
 .metric-row:nth-of-type(odd) td{
   background: #fafafa;
@@ -23,7 +23,12 @@
   &.hidden-cell{
     display: none;
   }
+  .backgroundTxt, .backgroundNone {
+    display: inline-block;
+    padding: 1px 5px 0px;
+  }
 }
+.backgroundTxt{background: #ffc9cf;}
 
 .table-metric .metric-row__header th {
   position: sticky;
@@ -32,10 +37,27 @@
   text-align: left;
   cursor: pointer;
   padding: 0px 0px;
+  min-height: 40px;
 }
 .table-metric .metric-row__header th div{
   padding: 9px 8px;
+  min-height: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
+.table-metric .metric-row__header th div .sortIcon{
+  opacity: 0;
+  transition: all 0.5s;
+}
+.table-metric .metric-row__header th.sorted div .sortIcon{
+  opacity: 1;
+}
+.table-metric .metric-row__header th.sorted div .sortIcon.orderByAsc{
+  transform: rotate(180deg);
+}
+
 .metric-row__footer td{
   position: sticky;
   bottom: 0px;
@@ -43,6 +65,7 @@
   cursor: pointer;
   background: #cccccc;
   font-weight: bold;
+  border-right: 1px solid #cccccc;
 }
 
 
@@ -65,8 +88,8 @@
     }
 }
 @keyframes bgAnimation {
-  from {background: #cccccc;}
-  50% {background: #cccccc;}
+  from {background: #ffc9cf;}
+  50% {background: #ffc9cf;}
   to {background: none}
 }
 .animatedColumn {

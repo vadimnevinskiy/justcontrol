@@ -7,6 +7,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatSelectModule} from '@angular/material/select';
 
+
 import {FilterPipe} from './pipes/filter.pipe';
 
 const MaterialComponents = [

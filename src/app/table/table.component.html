@@ -44,9 +44,11 @@
               *ngFor="let columns of data['meta']['columns']; let idx = index"
               [class.hidden-cell]="hideCell.includes(idx)"
               (click)="sortColumn(idx)"
+              [class.sorted]="idx == sortedColumn"
           >
             <div [ngClass]="{animatedColumn: !hideCell.includes(idx)}">
               {{columns.title}}
+              <mat-icon aria-hidden="false" class="sortIcon" [ngClass]="{orderByAsc: orderBy==='asc'}">south</mat-icon>
             </div>
           </th>
         </tr>
@@ -62,7 +64,16 @@
             *ngFor="let data of dataRow; let idx = index"
             [class.hidden-cell]="hideCell.includes(idx)"
             [ngStyle]="{width: columnWidth}"
-          >{{data}}</td>
+          >
+            <span *ngIf="search; else dataTemp">
+              <span *ngIf="data.toString().toLowerCase().includes(search.toString().toLowerCase()); else dataTemp" >
+                <span class="backgroundTxt">{{data}}</span>
+              </span>
+            </span>
+            <ng-template #dataTemp>
+              <span class="backgroundNone">{{data}}</span>
+            </ng-template>
+          </td>
         </tr>
         </tbody>
 

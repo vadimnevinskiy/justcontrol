@@ -11,7 +11,7 @@ export class FilterPipe implements PipeTransform {
     }
     return data.filter(d => {
       for (const row of d) {
-          if (row.toString().includes(search)) {
+          if (row.toString().toLowerCase().includes(search.toLowerCase())) {
           return row;
         }
       }

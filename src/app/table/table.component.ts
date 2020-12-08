@@ -16,12 +16,15 @@ export class TableComponent implements OnInit {
   data: Data; // Main response from server
   sortedData: any; // Copying data array an array for display at UI
   hideCell: number[] = [3, 5, 8, 11, 12, 13, 14, 15, 16, 17, 18]; // Default hidden columns
-  hideCellCopy: number[] = [];
+  hideCellCopy: number[] = []; // Copying 'hideCell' array
   p = 1;
   displayItems = '10';
   allItems: number;
   columnWidth = 'auto';
 
+
+  sortedColumn: number;
+  orderBy: string;
   search = '';
 
 
@@ -75,8 +78,18 @@ export class TableComponent implements OnInit {
   // Sorting data in columns
   sortColumn(idx): void {
     const data = this.data['data'].slice();
-    this.sortedData = data.sort((a, b) =>
-      a[idx] > b[idx] ? 1 : -1
-    );
+
+    if(this.sortedColumn === idx && this.orderBy === 'desc'){
+      this.orderBy = 'asc';
+      this.sortedData = data.sort((a, b) =>
+        a[idx] > b[idx] ? -1 : 1
+      );
+    }else{
+      this.orderBy = 'desc';
+      this.sortedData = data.sort((a, b) =>
+        a[idx] > b[idx] ? 1 : -1
+      );
+    }
+    this.sortedColumn = idx;
   }
 }
