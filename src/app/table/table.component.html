@@ -1,50 +1,104 @@
 <div *ngIf="data">
   <div class="container">
-    <div class="buttons-filter">
-      Show cell:  <span class="button button-active" *ngFor="let columns of data['meta']['columns']">{{columns.title}}</span>
+    <div class="filter-block">
+      Show metric:
+      <span *ngFor="let columns of data['meta']['columns']; let idx = index">
+        <button mat-raised-button color="primary"
+                class="button button-active"
+                (click)="switchDisplayColumn(idx)"
+                [ngClass]="(hideCell.includes(idx))? 'button-inactive' : 'button-active'"
+                *ngIf="columns.type != 'entity'">
+          {{columns.title}}
+        </button>
+      </span>
     </div>
+
+
+    <div class="filter-block flex">
+      <div class="flex-child">
+        <mat-form-field class="example-full-width">
+          <mat-label>Search</mat-label>
+          <input matInput placeholder="" [(ngModel)]="search">
+        </mat-form-field>
+      </div>
+      <div class="flex-child">
+        <mat-form-field appearance="fill">
+          <mat-label>Select an option</mat-label>
+          <mat-select [(value)]="displayItems">
+            <mat-option value="{{allItems}}">All</mat-option>
+            <mat-option value="5">5</mat-option>
+            <mat-option value="10">10</mat-option>
+            <mat-option value="20">20</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+
 
     <div class="table-container">
       <table class="table-metric">
         <thead>
-          <tr class="metric-row__header">
-            <th class="metric-cell" *ngFor="let columns of data['meta']['columns']">{{columns.title}}</th>
-          </tr>
+        <tr class="metric-row__header">
+          <th class="metric-cell"
+              *ngFor="let columns of data['meta']['columns']; let idx = index"
+              [class.hidden-cell]="hideCell.includes(idx)"
+              (click)="sortColumn(idx)"
+          >
+            <div [ngClass]="{animatedColumn: !hideCell.includes(idx)}">
+              {{columns.title}}
+            </div>
+          </th>
+        </tr>
         </thead>
 
         <tbody>
-          <tr class="metric-row" *ngFor="let dataRow of data['data']">
-            <td class="metric-cell" *ngFor="let data of dataRow">{{data}}</td>
-          </tr>
+        <tr class="metric-row"
+            *ngFor="let dataRow of sortedData |
+            filter: search  |
+            paginate: { itemsPerPage: displayItems, currentPage: p }">
+          <td
+            class="metric-cell"
+            *ngFor="let data of dataRow; let idx = index"
+            [class.hidden-cell]="hideCell.includes(idx)"
+            [ngStyle]="{width: columnWidth}"
+          >{{data}}</td>
+        </tr>
         </tbody>
 
         <tfoot>
-          <tr class="metric-row__footer">
-            <td class="metric-cell">TOTAL:</td>
-            <td class="metric-cell" >{{data['meta']['total']['impressions']}}</td>
-            <td class="metric-cell">{{data['meta']['total']['clicks']}}</td>
-            <td class="metric-cell">{{data['meta']['total']['ctr']}}</td>
-            <td class="metric-cell">{{data['meta']['total']['installs']}}</td>
-            <td class="metric-cell">{{data['meta']['total']['cr0']}}</td>
-            <td class="metric-cell">{{data['meta']['total']['register']}}</td>
-            <td class="metric-cell">{{data['meta']['total']['register_unique']}}</td>
-            <td class="metric-cell">{{data['meta']['total']['cr1']}}</td>
-            <td class="metric-cell">{{data['meta']['total']['ftd']}}</td>
-            <td class="metric-cell">{{data['meta']['total']['ftd_unique']}}</td>
-            <td class="metric-cell">{{data['meta']['total']['cr2']}}</td>
-            <td class="metric-cell">{{data['meta']['total']['af_purchase']}}</td>
-            <td class="metric-cell">{{data['meta']['total']['spent']}}</td>
-            <td class="metric-cell">{{data['meta']['total']['revenue']}}</td>
-            <td class="metric-cell">{{data['meta']['total']['roas']}}</td>
-            <td class="metric-cell">{{data['meta']['total']['ecpi']}}</td>
-            <td class="metric-cell">{{data['meta']['total']['arpu']}}</td>
-            <td class="metric-cell">{{data['meta']['total']['cpt']}}</td>
-          </tr>
+        <tr class="metric-row__footer">
+          <td class="metric-cell" [class.hidden-cell]="hideCell.includes(0)">TOTAL:</td>
+          <td class="metric-cell"
+              [class.hidden-cell]="hideCell.includes(1)">{{data['meta']['total']['impressions']}}</td>
+          <td class="metric-cell" [class.hidden-cell]="hideCell.includes(2)">{{data['meta']['total']['clicks']}}</td>
+          <td class="metric-cell" [class.hidden-cell]="hideCell.includes(3)">{{data['meta']['total']['ctr']}}</td>
+          <td class="metric-cell" [class.hidden-cell]="hideCell.includes(4)">{{data['meta']['total']['installs']}}</td>
+          <td class="metric-cell" [class.hidden-cell]="hideCell.includes(5)">{{data['meta']['total']['cr0']}}</td>
+          <td class="metric-cell" [class.hidden-cell]="hideCell.includes(6)">{{data['meta']['total']['register']}}</td>
+          <td class="metric-cell"
+              [class.hidden-cell]="hideCell.includes(7)">{{data['meta']['total']['register_unique']}}</td>
+          <td class="metric-cell" [class.hidden-cell]="hideCell.includes(8)">{{data['meta']['total']['cr1']}}</td>
+          <td class="metric-cell" [class.hidden-cell]="hideCell.includes(9)">{{data['meta']['total']['ftd']}}</td>
+          <td class="metric-cell"
+              [class.hidden-cell]="hideCell.includes(10)">{{data['meta']['total']['ftd_unique']}}</td>
+          <td class="metric-cell" [class.hidden-cell]="hideCell.includes(11)">{{data['meta']['total']['cr2']}}</td>
+          <td class="metric-cell"
+              [class.hidden-cell]="hideCell.includes(12)">{{data['meta']['total']['af_purchase']}}</td>
+          <td class="metric-cell" [class.hidden-cell]="hideCell.includes(13)">{{data['meta']['total']['spent']}}</td>
+          <td class="metric-cell" [class.hidden-cell]="hideCell.includes(14)">{{data['meta']['total']['revenue']}}</td>
+          <td class="metric-cell" [class.hidden-cell]="hideCell.includes(15)">{{data['meta']['total']['roas']}}</td>
+          <td class="metric-cell" [class.hidden-cell]="hideCell.includes(16)">{{data['meta']['total']['ecpi']}}</td>
+          <td class="metric-cell" [class.hidden-cell]="hideCell.includes(17)">{{data['meta']['total']['arpu']}}</td>
+          <td class="metric-cell" [class.hidden-cell]="hideCell.includes(18)">{{data['meta']['total']['cpt']}}</td>
+        </tr>
         </tfoot>
       </table>
     </div>
 
-
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
   </div>
+
+
 </div>
 

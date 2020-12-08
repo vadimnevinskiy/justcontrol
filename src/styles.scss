@@ -6,3 +6,10 @@ body{
 .container{
   padding: 10px;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-form-field-wrapper .mat-form-field-underline {
+  bottom: 1.24375em!important;
+}
