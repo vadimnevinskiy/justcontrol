@@ -17,13 +17,13 @@
     <div class="filter-block flex">
       <div class="flex-child">
         <mat-form-field class="example-full-width">
-          <mat-label>Search</mat-label>
+          <mat-label>Search item</mat-label>
           <input matInput placeholder="" [(ngModel)]="search">
         </mat-form-field>
       </div>
       <div class="flex-child">
         <mat-form-field appearance="fill">
-          <mat-label>Select an option</mat-label>
+          <mat-label>Items per page</mat-label>
           <mat-select [(value)]="displayItems">
             <mat-option value="{{allItems}}">All</mat-option>
             <mat-option value="5">5</mat-option>
@@ -76,26 +76,21 @@
           </td>
         </tr>
         </tbody>
-
         <tfoot>
         <tr class="metric-row__footer">
           <td class="metric-cell" [class.hidden-cell]="hideCell.includes(0)">TOTAL:</td>
-          <td class="metric-cell"
-              [class.hidden-cell]="hideCell.includes(1)">{{data['meta']['total']['impressions']}}</td>
+          <td class="metric-cell" [class.hidden-cell]="hideCell.includes(1)">{{data['meta']['total']['impressions']}}</td>
           <td class="metric-cell" [class.hidden-cell]="hideCell.includes(2)">{{data['meta']['total']['clicks']}}</td>
           <td class="metric-cell" [class.hidden-cell]="hideCell.includes(3)">{{data['meta']['total']['ctr']}}</td>
           <td class="metric-cell" [class.hidden-cell]="hideCell.includes(4)">{{data['meta']['total']['installs']}}</td>
           <td class="metric-cell" [class.hidden-cell]="hideCell.includes(5)">{{data['meta']['total']['cr0']}}</td>
           <td class="metric-cell" [class.hidden-cell]="hideCell.includes(6)">{{data['meta']['total']['register']}}</td>
-          <td class="metric-cell"
-              [class.hidden-cell]="hideCell.includes(7)">{{data['meta']['total']['register_unique']}}</td>
+          <td class="metric-cell" [class.hidden-cell]="hideCell.includes(7)">{{data['meta']['total']['register_unique']}}</td>
           <td class="metric-cell" [class.hidden-cell]="hideCell.includes(8)">{{data['meta']['total']['cr1']}}</td>
           <td class="metric-cell" [class.hidden-cell]="hideCell.includes(9)">{{data['meta']['total']['ftd']}}</td>
-          <td class="metric-cell"
-              [class.hidden-cell]="hideCell.includes(10)">{{data['meta']['total']['ftd_unique']}}</td>
+          <td class="metric-cell" [class.hidden-cell]="hideCell.includes(10)">{{data['meta']['total']['ftd_unique']}}</td>
           <td class="metric-cell" [class.hidden-cell]="hideCell.includes(11)">{{data['meta']['total']['cr2']}}</td>
-          <td class="metric-cell"
-              [class.hidden-cell]="hideCell.includes(12)">{{data['meta']['total']['af_purchase']}}</td>
+          <td class="metric-cell" [class.hidden-cell]="hideCell.includes(12)">{{data['meta']['total']['af_purchase']}}</td>
           <td class="metric-cell" [class.hidden-cell]="hideCell.includes(13)">{{data['meta']['total']['spent']}}</td>
           <td class="metric-cell" [class.hidden-cell]="hideCell.includes(14)">{{data['meta']['total']['revenue']}}</td>
           <td class="metric-cell" [class.hidden-cell]="hideCell.includes(15)">{{data['meta']['total']['roas']}}</td>
@@ -109,7 +104,5 @@
 
     <pagination-controls (pageChange)="p = $event"></pagination-controls>
   </div>
-
-
 </div>
 
